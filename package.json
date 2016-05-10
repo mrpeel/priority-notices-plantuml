@@ -6,6 +6,7 @@
     "url": "https://github.com/mrpeel/priority-notices-plantuml.git"
   },
   "devDependencies": {
+    "gulp": "^3.9.1",
     "gulp-puml": "^0.1.13"
   }
 }

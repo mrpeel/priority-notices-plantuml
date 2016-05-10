@@ -146,5 +146,4 @@ IntendedDealing "1" --> "0..*" Party
 IntendedDealing "1" -right> "1..*" LandReference
 
 
-
 @enduml
