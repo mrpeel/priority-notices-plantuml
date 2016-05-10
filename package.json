@@ -1,0 +1,11 @@
+{
+  "name": "priority-notices-plantuml",
+  "description": "UML class duiagram for priority notices",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mrpeel/priority-notices-plantuml.git"
+  },
+  "devDependencies": {
+    "gulp-puml": "^0.1.13"
+  }
+}

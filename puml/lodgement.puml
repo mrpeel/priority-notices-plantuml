@@ -1,0 +1,150 @@
+@startuml
+skinparam defaultFontName Open Sans
+skinparam classBorderColor 0F0F0F
+hide circle
+title Electronic Lodgement
+
+
+class Lodgement  #EFFFEF {
+  LodgementNumber
+  ElectronicLodgementCase: ElectronicLodgementCase
+  LodgedByCustomerCode
+  LodgedDate
+  LodgementStatus
+  Cases: Case
+}
+
+class Case #EFF1FF {
+  Dealings: Dealing
+}
+
+class Dealing #EFF1FF {
+  DealingNumber
+  DealingType
+  DealinfFolios: DealingFolio
+  DealingStatus
+  LodgementDate
+  DealingStatusUpdateDate
+  DealingFees: DealingFee
+  Instrument: Instrument
+}
+
+class DealingFolio #EFF1FF {
+  Folio
+  AsToPart
+  CTType
+  ControlType
+  ControlPartyCode
+}
+
+class DealingFee #EFF1FF {
+  FeeType
+  Quantity
+  FeeAmount
+}
+
+class EncumbranceDealing #EFF1FF {
+  EncumbranceParties: Party
+  ServiceOfNoticeContact: Party
+  ServiceOfNoticeAddress
+}
+
+class EncumbranceOnEnmcumbrance #EFF1FF {
+  AffectedDealingNumber
+}
+
+class Party #EFF1FF {
+  PartyType
+  GivenName1
+  GivenName2
+  GivenNameOthers
+  SurnameCompany
+  Address
+  ACN_ABN_ARBN
+  OrganisationNumberType
+  GovernmentProprietorID
+}
+
+class Address #EFF1FF {
+  AddressType
+  PropertyName1
+  PropertyName2
+  FloorType
+  FloorNo
+  FloorNoSuffix
+  UnitType
+  UnitNoFrom
+  UnitNoFromSuffix
+  UnitNoTo
+  UnitNoToSuffix
+  StreetNoFrom
+  StreetNoFrom Suffix
+  StreetNoTo
+  StreetNoToSuffix
+  StreetName1
+  StreetType1
+  StreetSuffix1
+  StreetName2
+  StreetType2
+  StreetSuffix2
+  Locality
+  State
+  Country
+  PostCode
+  PostalAddressType
+  PostalAddressNo
+  TextAddressLine1
+  TextAddressLine2
+  TextAddressLine3
+  TextAddressLine4
+  DXAddressNumber
+  DXAddressLocation
+  EmailAddress
+}
+
+class PriorityNotice #FFF0EF {
+  IntendedDealings: IntendedDealing
+  ExpiryDate
+}
+
+class WithdrawPriorityNotice #FFEFF8 {
+  PriorityNoticeDealingNumber
+}
+
+class ExtendPriorityNotice #F8EFFF {
+  NewExpiryDate
+}
+
+class IntendedDealing #FFF0EF {
+  DealingSequence
+  DealingType
+  AffectedDealingNumbers: DealingNumber
+  AffectedLandReferences: LandReference
+  PartiesReceiving: Party
+}
+
+class LandReference #FFF0EF {
+  Folio
+  AsToPart
+  LandDescription: LandDescription
+}
+
+Lodgement "1" --> "1..*" Case
+Case "1" --> "1..*" Dealing
+Dealing "1" --> "1..*" DealingFolio
+Dealing "1" --> "1..*" DealingFee
+WithdrawPriorityNotice --|> Dealing
+EncumbranceDealing -left|> Dealing
+EncumbranceOnEnmcumbrance --|> Dealing
+ExtendPriorityNotice --|> EncumbranceOnEnmcumbrance
+EncumbranceDealing "1" --> "1..*" Party
+Party "1" -left> "0..*" Address
+EncumbranceDealing "1" --> "0..*" Address
+PriorityNotice --|> EncumbranceDealing
+PriorityNotice -right> IntendedDealing
+IntendedDealing "1" --> "0..*" Party
+IntendedDealing "1" -right> "1..*" LandReference
+
+
+
+@enduml
