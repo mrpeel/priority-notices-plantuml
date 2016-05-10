@@ -1,8 +1,11 @@
 @startuml
 skinparam defaultFontName Open Sans
 skinparam classBorderColor 0F0F0F
+skinparam classArrowColor 2F2F2F
+skinparam classArrowFontStyle bold
+skinparam classArrowFontSize 9
+
 hide circle
-title Electronic Lodgement
 
 
 class Lodgement  #EFFFEF {
@@ -117,7 +120,7 @@ class ExtendPriorityNotice #F8EFFF {
 
 class IntendedDealing #FFF0EF {
   DealingSequence
-  DealingType
+  DocumentType
   AffectedDealingNumbers: DealingNumber
   AffectedLandReferences: LandReference
   PartiesReceiving: Party
@@ -129,21 +132,21 @@ class LandReference #FFF0EF {
   LandDescription: LandDescription
 }
 
-Lodgement "1" --> "1..*" Case
-Case "1" --> "1..*" Dealing
-Dealing "1" --> "1..*" DealingFolio
-Dealing "1" --> "1..*" DealingFee
+Lodgement "1 " --> "1..*" Case
+Case "1 " --> "1..*" Dealing
+Dealing "1 " --> "1..*" DealingFolio
+Dealing "1 " --> "1..*" DealingFee
 WithdrawPriorityNotice --|> Dealing
 EncumbranceDealing -left|> Dealing
 EncumbranceOnEnmcumbrance --|> Dealing
 ExtendPriorityNotice --|> EncumbranceOnEnmcumbrance
-EncumbranceDealing "1" --> "1..*" Party
-Party "1" -left> "0..*" Address
-EncumbranceDealing "1" --> "0..*" Address
+EncumbranceDealing "1 " --> "1..*" Party
+Party "1 " -left> "0..*" Address
+EncumbranceDealing "1 " --> "0..*" Address
 PriorityNotice --|> EncumbranceDealing
-PriorityNotice -right> IntendedDealing
-IntendedDealing "1" --> "0..*" Party
-IntendedDealing "1" -right> "1..*" LandReference
+PriorityNotice --> IntendedDealing
+IntendedDealing "1 " --> "0..*" Party
+IntendedDealing "1 " --> "1..*" LandReference
 
 
 @enduml

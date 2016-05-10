@@ -1,0 +1,141 @@
+@startuml
+skinparam defaultFontName Open Sans
+skinparam classBorderColor 0F0F0F
+skinparam classArrowColor 4F4F4F
+skinparam classArrowFontStyle bold
+skinparam classArrowFontSize 9
+
+hide circle
+
+
+class ElectronicLodgementCase #EFFFEF {
+  RequestOrigin
+  RequestMessageID
+  LodgementReference
+  LodgeCaseExternalID
+  LodgementDate
+  LodgementInstructions: LodgementInstructions
+  Instruments: InstrumentOrAdminNotice
+  BundleSubscriptionIDs: BundleSubscriptionID
+  SuppliedFeeTotal
+}
+
+class LodgementInstructions #EFF1FF {
+  ExternalReferenceID
+  LodgingParty: Party
+  DealingRequirements: DealingRequirements
+  Executions: Execution
+  IssuingInstructions: IssuingInstruction
+  OperativeClauses: OperativeClause
+}
+
+class InstrumentOrAdminNotice #EFF1FF {
+  InstrumentSequence
+  InstrumentDealing: Dealing
+  ExternalReferenceID
+  FolioReferences: FolioReference
+  OperativeClauses: OperativeClause
+  Executions: Execution
+  SuppliedDealingFees: Fee
+}
+
+class Fee #EFF1FF {
+  FeeType
+  FeeDescription
+  FeeNetAmount
+  FeeGSTAmount
+  FeeTotal
+}
+
+class Party #EFF1FF {
+  PartyType
+  GivenName1
+  GivenName2
+  GivenNameOthers
+  SurnameCompany
+  Address
+  ACN_ABN_ARBN
+  OrganisationNumberType
+  GovernmentProprietorID
+}
+
+class Address #EFF1FF {
+  AddressType
+  PropertyName1
+  PropertyName2
+  FloorType
+  FloorNo
+  FloorNoSuffix
+  UnitType
+  UnitNoFrom
+  UnitNoFromSuffix
+  UnitNoTo
+  UnitNoToSuffix
+  StreetNoFrom
+  StreetNoFrom Suffix
+  StreetNoTo
+  StreetNoToSuffix
+  StreetName1
+  StreetType1
+  StreetSuffix1
+  StreetName2
+  StreetType2
+  StreetSuffix2
+  Locality
+  State
+  Country
+  PostCode
+  PostalAddressType
+  PostalAddressNo
+  TextAddressLine1
+  TextAddressLine2
+  TextAddressLine3
+  TextAddressLine4
+  DXAddressNumber
+  DXAddressLocation
+  EmailAddress
+}
+
+class PriorityNotice #FFF0EF {
+  Applicants: Party
+  ServiceOfNoticeAddress: Address
+  IntendedDealings: IntendedDealing
+}
+
+class WithdrawPriorityNotice #FFEFF8 {
+  PriorityNoticeDealingNumber
+}
+
+class ExtendPriorityNotice #F8EFFF {
+  PriorityNoticeDealingNumber
+}
+
+class IntendedDealing #FFF0EF {
+  DealingSequence
+  DocumentType
+  AffectedLandReferences: LandReference
+  AffectedDealingNumbers: DealingNumber
+  PartiesReceiving: Party
+}
+
+class LandReference #FFF0EF {
+  Folio
+  AsToPart
+  LandDescription: LandDescription
+}
+
+ElectronicLodgementCase "1 " --> "0..1" LodgementInstructions
+LodgementInstructions "1 " --> "1" Party
+ElectronicLodgementCase "1 " --> "1..*" InstrumentOrAdminNotice
+InstrumentOrAdminNotice "1 " -right> "0..*" Fee
+PriorityNotice --|> InstrumentOrAdminNotice
+PriorityNotice "1 " --> "1..*" Party
+PriorityNotice "1 " --> "1" Address
+PriorityNotice "1 " --> "1..*" IntendedDealing
+IntendedDealing "1 " --> "0..*" Party
+IntendedDealing "1 " --> "1..*" LandReference
+WithdrawPriorityNotice --|> InstrumentOrAdminNotice
+ExtendPriorityNotice --|> InstrumentOrAdminNotice
+
+
+@enduml
