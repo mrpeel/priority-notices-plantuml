@@ -99,15 +99,18 @@ class Address #EFF1FF {
 class PriorityNotice #FFF0EF {
   Applicants: Party
   ServiceOfNoticeAddress: Address
+  FolioReferences: FolioReference
   IntendedDealings: IntendedDealing
 }
 
 class WithdrawPriorityNotice #FFEFF8 {
   PriorityNoticeDealingNumber
+  Applicants: Party
 }
 
 class ExtendPriorityNotice #F8EFFF {
   PriorityNoticeDealingNumber
+  Applicants: Party
 }
 
 class IntendedDealing #FFF0EF {
@@ -119,23 +122,24 @@ class IntendedDealing #FFF0EF {
 }
 
 class LandReference #FFF0EF {
-  Folio
+  FolioReference
   AsToPart
   LandDescription: LandDescription
 }
 
 ElectronicLodgementCase "1 " --> "0..1" LodgementInstructions
 LodgementInstructions "1 " --> "1" Party
-ElectronicLodgementCase "1 " --> "1..*" InstrumentOrAdminNotice
-InstrumentOrAdminNotice "1 " -right> "0..*" Fee
-PriorityNotice --|> InstrumentOrAdminNotice
+ElectronicLodgementCase "1 " -right-> "1..*" InstrumentOrAdminNotice
+InstrumentOrAdminNotice "1 " -right-> "0..*" Fee
+PriorityNotice -up-|> InstrumentOrAdminNotice
 PriorityNotice "1 " --> "1..*" Party
 PriorityNotice "1 " --> "1" Address
 PriorityNotice "1 " --> "1..*" IntendedDealing
 IntendedDealing "1 " --> "0..*" Party
 IntendedDealing "1 " --> "1..*" LandReference
-WithdrawPriorityNotice --|> InstrumentOrAdminNotice
-ExtendPriorityNotice --|> InstrumentOrAdminNotice
-
+WithdrawPriorityNotice -up-|> InstrumentOrAdminNotice
+WithdrawPriorityNotice "1 " --> "1..*" Party
+ExtendPriorityNotice -up-|> InstrumentOrAdminNotice
+ExtendPriorityNotice "1 " --> "1..*" Party
 
 @enduml
