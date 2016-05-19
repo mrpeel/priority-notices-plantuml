@@ -24,7 +24,7 @@ class Case #EFF1FF {
 class Dealing #EFF1FF {
   DealingNumber
   DealingType
-  DealinfFolios: DealingFolio
+  DealingFolios: DealingFolio
   DealingStatus
   LodgementDate
   DealingStatusUpdateDate
@@ -129,8 +129,10 @@ class IntendedDealing #FFF0EF {
 class LandReference #FFF0EF {
   Folio
   AsToPart
-  LandDescription: LandDescription
+  LandDescription
+  SPI
 }
+
 
 Lodgement "1 " --> "1..*" Case
 Case "1 " --> "1..*" Dealing
@@ -147,6 +149,5 @@ PriorityNotice --|> EncumbranceDealing
 PriorityNotice --> IntendedDealing
 IntendedDealing "1 " --> "0..*" Party
 IntendedDealing "1 " --> "1..*" LandReference
-
 
 @enduml

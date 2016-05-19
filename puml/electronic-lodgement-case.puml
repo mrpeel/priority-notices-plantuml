@@ -124,7 +124,23 @@ class IntendedDealing #FFF0EF {
 class LandReference #FFF0EF {
   FolioReference
   AsToPart
-  LandDescription: LandDescription
+  LandDescription
+  LandType
+  SPI
+  LotNumber
+  PlanNumber
+  ParcelType
+  LotType
+  Allotment
+  Section
+  Block
+  Subdivision
+  Portion
+  Other
+  ParishCode
+  ParishName
+  TownshipCode
+  TownshipName
 }
 
 ElectronicLodgementCase "1 " --> "0..1" LodgementInstructions
