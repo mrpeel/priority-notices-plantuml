@@ -1,4 +1,5 @@
 @startuml
+
 skinparam defaultFontName Open Sans
 skinparam classBorderColor 0F0F0F
 skinparam classArrowColor 4F4F4F
@@ -99,7 +100,6 @@ class Address #EFF1FF {
 class PriorityNotice #FFF0EF {
   Applicants: Party
   ServiceOfNoticeAddress: Address
-  FolioReferences: FolioReference
   IntendedDealings: IntendedDealing
 }
 
